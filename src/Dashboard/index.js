@@ -27,7 +27,7 @@ export default function Dashboards({route}) {
             </View>
 
             <Button title="Deslogar"
-                    onPress={logout} {()=> navigation.goBack()}/>
+                    onPress={logout()=> navigation.goBack()}/>
 
 
         </View>

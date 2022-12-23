@@ -41,7 +41,7 @@ export default function Home() {
     async function registrar() {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((value) => {
-                alert('teste' + value.user.email)
+                alert('test2' + value.user.email)
 
             })
             .catch((error) => {

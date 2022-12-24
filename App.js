@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, TextInput, Button, FlatList, ActivityIndicator} 
 import firebase from './src/firebaseConnection'
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from "@react-navigation/native";
+import Registrar from "./src/Registrar";
 
 import Dashboards from "./src/Dashboard";
 import Home from "./src/Home";
@@ -19,6 +20,8 @@ export default function App() {
                 <Stack.Navigator>
                     <Stack.Screen name="Home" component={Home} options={{headerShown: false,}}/>
                     <Stack.Screen name="Dashboards" component={Dashboards}/>
+                    <Stack.Screen name="Registrar" component={Registrar}/>
+
                 </Stack.Navigator>
             </NavigationContainer>
 

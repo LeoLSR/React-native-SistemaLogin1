@@ -2,10 +2,12 @@ import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput, Button, FlatList, ActivityIndicator, Image} from 'react-native'
 import firebase from '../firebaseConnection'
+import styles from "../Styles/Estilos";
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer, useNavigation} from "@react-navigation/native";
 
 import Dashboards from "../Dashboard";
+import Registrar from "../Registrar";
 
 export default function Home() {
 
@@ -18,6 +20,10 @@ export default function Home() {
 
     function areaLogada() {
         navigation.navigate('Dashboards', {user}, {setUser})
+    }
+
+    function areaRegistrar() {
+        navigation.navigate('Registrar')
     }
 
     async function logar() {
@@ -43,9 +49,9 @@ export default function Home() {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((value) => {
                 //alert(value.user.uid)
-            firebase.database().ref('usuarios').child(value.user.uid).set({
-                nome: name
-            })
+                firebase.database().ref('usuarios').child(value.user.uid).set({
+                    nome: name
+                })
 
                 alert('USUARIO CRIADO')
 
@@ -72,15 +78,6 @@ export default function Home() {
                 />
             </View>
 
-
-            <Text style={styles.texto}>Nome</Text>
-            <TextInput
-                style={styles.input}
-                underlineColorAndroid="transparent"
-                onChangeText={(name) => setName(name)}
-                value={name}
-            />
-
             <Text style={styles.texto}>E-mail</Text>
             <TextInput
                 style={styles.input}
@@ -95,21 +92,17 @@ export default function Home() {
                 underlineColorAndroid="transparent"
                 onChangeText={(texto) => setPassword(texto)}
                 value={password}
+                secureTextEntry={true}
             />
-            <View>
 
-            </View>
             <View style={styles.botoes}>
-
                 <Button
                     title={"Acessar"}
                     onPress={logar}
                 />
                 <Button
-
                     title={"Registrar"}
-                    onPress={registrar}
-
+                    onPress={areaRegistrar}
                 />
 
 
@@ -117,45 +110,10 @@ export default function Home() {
             <Text style={{marginTop: 20, marginBottom: 20, fontSize: 23, textAlign: 'center'}}>
 
             </Text>
-
+        <View style={styles.copy}>
+             <Text>© Leonardo de Souza</Text>
+        </View>
 
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        margin: 10,
-
-
-    },
-    texto: {
-        fontSize: 20,
-
-    },
-    input: {
-        marginBottom: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#121212',
-        height: 40,
-        fontSize: 17,
-    },
-    botoes: {
-
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-
-    },
-    logo: {
-        width: 180,
-        height: 150,
-
-    },
-    centralizado:{
-        alignItems: 'center',
-        marginBottom: 20,
-    }
-
-
-})

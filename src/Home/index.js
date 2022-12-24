@@ -12,6 +12,7 @@ export default function Home() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState('');
+    const [name, setName] = useState('');
 
     const navigation = useNavigation()
 
@@ -41,7 +42,12 @@ export default function Home() {
     async function registrar() {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((value) => {
-                alert('test2' + value.user.email)
+                //alert(value.user.uid)
+            firebase.database().ref('usuarios').child(value.user.uid).set({
+                nome: name
+            })
+
+                alert('USUARIO CRIADO')
 
             })
             .catch((error) => {
@@ -49,7 +55,7 @@ export default function Home() {
                 return
 
             })
-
+        setName('')
         setEmail('')
         setPassword('')
     }
@@ -67,7 +73,15 @@ export default function Home() {
             </View>
 
 
-            <Text style={styles.texto}>Email</Text>
+            <Text style={styles.texto}>Nome</Text>
+            <TextInput
+                style={styles.input}
+                underlineColorAndroid="transparent"
+                onChangeText={(name) => setName(name)}
+                value={name}
+            />
+
+            <Text style={styles.texto}>E-mail</Text>
             <TextInput
                 style={styles.input}
                 underlineColorAndroid="transparent"
@@ -75,6 +89,7 @@ export default function Home() {
                 value={email}
             />
             <Text style={styles.texto}>Senha</Text>
+
             <TextInput
                 style={styles.input}
                 underlineColorAndroid="transparent"

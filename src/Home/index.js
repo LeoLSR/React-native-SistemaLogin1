@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TextInput, Button, FlatList, ActivityIndicator, Image} from 'react-native'
+import React, {useState} from 'react';
+import {View, Text, TextInput, Button, Image} from 'react-native'
 import firebase from '../firebaseConnection'
 import styles from "../Styles/Estilos";
-import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer, useNavigation} from "@react-navigation/native";
 
 import Dashboards from "../Dashboard";
@@ -14,13 +13,11 @@ export default function Home() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState('');
-    const [name, setName] = useState('');
+
 
     const navigation = useNavigation()
 
-    function areaLogada() {
-        navigation.navigate('Dashboards', {user}, {setUser})
-    }
+
 
     function areaRegistrar() {
         navigation.navigate('Registrar')
@@ -38,44 +35,19 @@ export default function Home() {
                 return
 
             })
-
-
-        setEmail('')
-        setPassword('')
-
-    }
-
-    async function registrar() {
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((value) => {
-                //alert(value.user.uid)
-                firebase.database().ref('usuarios').child(value.user.uid).set({
-                    nome: name
-                })
-
-                alert('USUARIO CRIADO')
-
-            })
-            .catch((error) => {
-                alert('Ops, algo deu errado!')
-                return
-
-            })
-        setName('')
         setEmail('')
         setPassword('')
     }
-
+    function areaLogada() {
+        navigation.navigate('Dashboards', {user}, {setUser})
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.centralizado}>
                 <Image
                     style={styles.logo}
-                    source={{
-                        uri: 'https://urubuinterativo.com/wp-content/uploads/2021/10/urubu-menor.png',
-                    }}
-                />
+                    source={{uri: 'https://urubuinterativo.com/wp-content/uploads/2021/10/urubu-menor.png'}} />
             </View>
 
             <Text style={styles.texto}>E-mail</Text>
@@ -101,7 +73,7 @@ export default function Home() {
                     onPress={logar}
                 />
                 <Button
-                    title={"Registrar"}
+                    title={"Criar Conta"}
                     onPress={areaRegistrar}
                 />
 

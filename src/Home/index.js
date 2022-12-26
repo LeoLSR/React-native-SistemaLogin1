@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, Image} from 'react-native'
+import {View, Text, TextInput, Button, Image, TouchableOpacity} from 'react-native'
 import firebase from '../firebaseConnection'
 import styles from "../Styles/Estilos";
 import {NavigationContainer, useNavigation} from "@react-navigation/native";
@@ -67,18 +67,17 @@ export default function Home() {
                 secureTextEntry={true}
             />
 
-            <View style={styles.botoes}>
+            <View style={{width: 150, marginLeft:120}}>
                 <Button
                     title={"Acessar"}
                     onPress={logar}
                 />
-                <Button
-                    title={"Criar Conta"}
-                    onPress={areaRegistrar}
-                />
-
-
             </View>
+
+            <TouchableOpacity>
+                <Text  style={styles.botoes}>Cadastrar</Text>
+            </TouchableOpacity>
+
             <Text style={{marginTop: 20, marginBottom: 20, fontSize: 23, textAlign: 'center'}}>
 
             </Text>

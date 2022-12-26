@@ -23,8 +23,11 @@ const styles = StyleSheet.create({
     },
     botoes: {
 
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+textAlign: 'center',
+      fontWeight: 'bold',
+        color: '#727272',
+        fontSize: 15,
+        marginTop: 10,
 
     },
     logo: {
